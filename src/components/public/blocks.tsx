@@ -303,18 +303,21 @@ export function FeatureGrid({ items, locale, variant = "plain" }: { items: Retur
   );
 }
 
+
 /** Numbered steps (Get connected in 4 steps). */
 export function Steps({ items, locale }: { items: ReturnType<typeof rows>; locale: AppLocale }) {
   if (!items.length) return null;
   return (
-    <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <ol className="grid gap-8 pt-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((it, i) => (
         <li key={i} className="relative text-center">
-          <span className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-primary shadow-[var(--shadow-card)] ring-1 ring-line">
+          <span className="relative mx-auto inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-primary shadow-[var(--shadow-card)] ring-1 ring-line">
             <Icon name={it.icon} className="h-7 w-7" />
+            <span className="absolute -top-2.5 -right-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-white ring-4 ring-page" aria-hidden>
+              {i + 1}
+            </span>
           </span>
-          <span className="mx-auto -mt-3 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-white ring-4 ring-page">{i + 1}</span>
-          <h3 className="mt-2 text-sm font-bold">{rs(it, "title", locale)}</h3>
+          <h3 className="mt-3 text-sm font-bold">{rs(it, "title", locale)}</h3>
           {rs(it, "desc", locale) && <p className="mt-1 text-xs leading-5 text-muted">{rs(it, "desc", locale)}</p>}
         </li>
       ))}
