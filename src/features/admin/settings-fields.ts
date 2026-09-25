@@ -1,0 +1,43 @@
+import { bt, bta, t, type FieldDef } from "@/features/fields";
+
+export const BRAND_FIELDS: FieldDef[] = [
+  t("companyName", "Company name", { required: true, min: 2, max: 100, width: "half" }),
+  t("shortName", "Short name (logo text)", { max: 40, width: "half" }),
+  bt("tagline", "Tagline", { max: 120 }),
+  bta("description", "Short description (footer / SEO fallback)", { max: 400 }),
+  { name: "logoLightMediaId", label: "Primary logo (for light backgrounds)", type: "media", mediaCategory: "LOGO" },
+  { name: "logoDarkMediaId", label: "Logo for dark backgrounds (footer)", type: "media", mediaCategory: "LOGO" },
+  { name: "faviconMediaId", label: "Favicon (square PNG)", type: "media", mediaCategory: "LOGO" },
+  { name: "defaultOgMediaId", label: "Default social share image (1200×630)", type: "media", mediaCategory: "GENERAL" },
+  { name: "primaryColor", label: "Primary color (buttons, links)", type: "color", required: true, width: "half" },
+  { name: "secondaryColor", label: "Secondary / navy (header, footer)", type: "color", required: true, width: "half" },
+  { name: "accentColor", label: "Accent (fiber highlights)", type: "color", required: true, width: "half" },
+  t("hotline", "Hotline", { max: 40, width: "half" }),
+  t("salesPhone", "Sales phone", { max: 40, width: "half" }),
+  t("supportEmail", "Support email", { type: "email", max: 254, width: "half" }),
+  t("salesEmail", "Sales email", { type: "email", max: 254, width: "half" }),
+  t("whatsappUrl", "WhatsApp link (https://wa.me/...)", { type: "url", width: "half" }),
+  t("messengerUrl", "Messenger / Facebook link (https://m.me/...)", { type: "url", width: "half" }),
+];
+
+export const GENERAL_FIELDS: FieldDef[] = [
+  { name: "utilityBarEnabled", label: "Show top utility bar (hotline, email, hours, social)", type: "checkbox" },
+  bt("officeHours", "Office hours text", { max: 100 }),
+  bta("supportAvailability", "Support availability message", { max: 400, help: "24/7 chat capture does not imply 24/7 human presence — say so honestly." }),
+  { name: "chatEnabled", label: "Enable live chat widget", type: "checkbox", width: "half" },
+  { name: "chatOnlineHoursStart", label: "Agents online from (hour 0-23, Dhaka)", type: "number", min: 0, max: 23, required: true, width: "half" },
+  { name: "chatOnlineHoursEnd", label: "Agents online until (hour 0-23, Dhaka)", type: "number", min: 0, max: 23, required: true, width: "half" },
+  { name: "formContact", label: "Contact form enabled", type: "checkbox", width: "half" },
+  { name: "formConnection", label: "Get Connection form enabled", type: "checkbox", width: "half" },
+  { name: "formCorporate", label: "Corporate inquiry form enabled", type: "checkbox", width: "half" },
+  { name: "formCoverageInterest", label: "Coverage 'Notify me' form enabled", type: "checkbox", width: "half" },
+  { name: "visitorAckEmail", label: "Send acknowledgement email to visitors (when they provide an email)", type: "checkbox" },
+  t("recipientSupport", "Support notifications recipient email", { type: "email", max: 254, width: "half" }),
+  t("recipientSales", "Sales notifications recipient email", { type: "email", max: 254, width: "half" }),
+  { name: "maintenanceBannerEnabled", label: "Show maintenance/notice banner on website", type: "checkbox" },
+  bta("maintenanceBanner", "Banner text", { max: 300, bnOptional: true }),
+  { name: "browseCoverageEnabled", label: "Show 'Browse coverage' list on Coverage page", type: "checkbox" },
+  t("btrcTariffUrl", "BTRC / tariff link (footer, optional)", { type: "url" }),
+  t("careerUrl", "Career page link (footer, optional)", { type: "url" }),
+  { name: "retentionMonths", label: "Lead/chat retention policy (months, informational)", type: "number", min: 1, max: 120, required: true, width: "half" },
+];

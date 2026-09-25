@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens (PRD 3.1). Brand colors are injected at runtime from BrandSetting as
+ * --brand-primary / --brand-navy / --brand-accent on <html>, so rebranding needs no redeploy.
+ */
+:root {
+  --brand-primary: #0a66ff;
+  --brand-navy: #071a2e;
+  --brand-accent: #00bceb;
+}
+
+@theme inline {
+  --color-primary: var(--brand-primary);
+  --color-primary-dark: color-mix(in oklab, var(--brand-primary) 82%, black);
+  --color-primary-soft: color-mix(in oklab, var(--brand-primary) 10%, white);
+  --color-navy: var(--brand-navy);
+  --color-navy-light: color-mix(in oklab, var(--brand-navy) 80%, var(--brand-primary));
+  --color-accent: var(--brand-accent);
+  --color-accent-soft: color-mix(in oklab, var(--brand-accent) 14%, white);
+  --color-page: #f4f8fc;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+  --color-line: #e2e8f0;
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-danger: #b91c1c;
+
+  --font-sans: var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+  --font-bengali: var(--font-noto-bengali);
+  --font-script: var(--font-caveat), var(--font-noto-bengali), cursive;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 20px 40px -20px rgb(10 102 255 / 0.35);
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+html[lang="bn"] body {
+  font-family: var(--font-noto-bengali), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+/* Bangla glyphs need extra vertical room to avoid clipping (PRD 20.1). */
+html[lang="bn"] h1,
+html[lang="bn"] h2,
+html[lang="bn"] h3 {
+  line-height: 1.35;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility card {
+  @apply rounded-2xl border border-line bg-surface shadow-[var(--shadow-card)];
+}
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary {
+  @apply btn bg-primary text-white hover:bg-primary-dark;
+}
+@utility btn-secondary {
+  @apply btn bg-navy text-white hover:bg-navy-light;
+}
+@utility btn-outline {
+  @apply btn border border-primary bg-white text-primary hover:bg-primary-soft;
+}
+@utility btn-ghost-light {
+  @apply btn border border-white/50 text-white hover:bg-white/10;
+}
+@utility btn-danger {
+  @apply btn bg-danger text-white hover:bg-red-800;
+}
+@utility input {
+  @apply block min-h-11 w-full rounded-xl border border-line bg-white px-3.5 text-sm text-ink placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none disabled:bg-slate-50 aria-[invalid=true]:border-danger;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-medium text-ink;
+}
+@utility field-error {
+  @apply mt-1 text-xs font-medium text-danger;
+}
+@utility section {
+  @apply py-12 sm:py-16;
+}
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.14em] text-accent uppercase;
+}
+@utility h2 {
+  @apply text-2xl font-bold tracking-tight text-ink sm:text-3xl;
+}
+@utility lead {
+  @apply mt-2 text-sm text-muted sm:text-base;
+}
+@utility script {
+  font-family: var(--font-script);
+}
+
+@layer components {
+  .prose-content {
+    @apply text-[15px] leading-7 text-slate-700;
+  }
+  .prose-content h2 {
+    @apply mt-8 mb-3 text-xl font-bold text-ink;
+  }
+  .prose-content h3 {
+    @apply mt-6 mb-2 text-lg font-semibold text-ink;
+  }
+  .prose-content p {
+    @apply my-4;
+  }
+  .prose-content ul {
+    @apply my-4 list-disc pl-6;
+  }
+  .prose-content ol {
+    @apply my-4 list-decimal pl-6;
+  }
+  .prose-content li {
+    @apply my-1;
+  }
+  .prose-content a {
+    @apply font-medium text-primary underline underline-offset-2;
+  }
+  .prose-content blockquote {
+    @apply my-6 border-l-4 border-accent bg-accent-soft/60 px-4 py-2 italic;
+  }
+  .prose-content img {
+    @apply my-6 rounded-xl;
+  }
+  .prose-content table {
+    @apply my-6 w-full border-collapse text-sm;
+  }
+  .prose-content th,
+  .prose-content td {
+    @apply border border-line px-3 py-2 text-left;
+  }
+}
+
+/* Hero network backdrop */
+.hero-bg {
+  background:
+    radial-gradient(1200px 500px at 85% 20%, color-mix(in oklab, var(--brand-accent) 28%, transparent), transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, color-mix(in oklab, var(--brand-primary) 40%, transparent), transparent 60%),
+    linear-gradient(135deg, var(--brand-navy) 0%, color-mix(in oklab, var(--brand-navy) 75%, var(--brand-primary)) 100%);
+}
+
+@keyframes fiber-flow {
+  from {
+    stroke-dashoffset: 400;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.fiber-line {
+  stroke-dasharray: 6 14;
+  animation: fiber-flow 12s linear infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
