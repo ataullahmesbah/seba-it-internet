@@ -72,11 +72,7 @@ npm run setup                 # creates tables + loads the SEBA IT demo data
 npm run dev                   # open http://localhost:3000
 ```
 
-**Dashboard login:** http://localhost:3000/admin
-| | |
-|---|---|
-| Email | `admin@sebait.local` |
-| Password | `SebaIT@Admin2026` |
+
 
 Both come from `DEMO_ADMIN_EMAIL` / `DEMO_ADMIN_PASSWORD` in `.env` (nothing is hard-coded). Change the password after
 login (**My Profile → Password**). Dev-only role test accounts `manager@`, `moderator@` and `support@sebait.local` use the same password.
